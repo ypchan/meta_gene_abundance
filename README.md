@@ -7,8 +7,8 @@ gene-level long table containing raw counts, RPM/FPM, RPKM/FPKM, and coverage.
 
 The implementation intentionally remains a single-script style tool:
 
-- repository entry point: `gene_abundance.py`
-- installable command: `gene_abundance`
+- repository entry point: `meta_gene_abundance.py`
+- installable command: `meta_gene_abundance`
 - no workflow framework or package layout required
 
 ## Installation
@@ -22,7 +22,7 @@ pip install git+https://github.com/ypchan/meta_gene_abundance.git
 After installation:
 
 ```bash
-gene_abundance --help
+meta_gene_abundance --help
 ```
 
 ### Install from a Local Clone
@@ -61,10 +61,10 @@ sample02	/path/sample02.R1.fq.gz	/path/sample02.R2.fq.gz	2024	7	2-5
 Run the analysis:
 
 ```bash
-gene_abundance \
+meta_gene_abundance \
   -i samples.tsv \
   --reference target_genes.fa \
-  --prefix gene_abundance \
+  --prefix results \
   --jobs 4 \
   --threads 8
 ```
@@ -72,11 +72,11 @@ gene_abundance \
 Main outputs:
 
 ```text
-gene_abundance.gene_abundance.long.tsv
-gene_abundance.sample_qc.tsv
-gene_abundance.reference.tsv
-gene_abundance.run.log
-gene_abundance.state.json
+results.meta_gene_abundance.long.tsv
+results.sample_qc.tsv
+results.reference.tsv
+results.run.log
+results.state.json
 ```
 
 ## Workflow
@@ -151,7 +151,7 @@ Rules:
 ### Single-Sample Mode
 
 ```bash
-gene_abundance \
+meta_gene_abundance \
   --r1 sample.R1.fq.gz \
   --r2 sample.R2.fq.gz \
   --sample-id sample01 \
@@ -265,7 +265,7 @@ thresholds.
 
 ## Output Files
 
-### `PREFIX.gene_abundance.long.tsv`
+### `PREFIX.meta_gene_abundance.long.tsv`
 
 One row per completed sample and target gene. This is the main abundance table.
 
@@ -350,6 +350,6 @@ requires recomputation with `--force`.
 
 - The tool does not create an analysis directory; outputs are written as
   `PREFIX.*` files.
-- Older `PREFIX.gene_abundance.rpkm.tsv` and
-  `PREFIX.gene_abundance.fpkm.tsv` files from previous versions are deleted
+- Older `PREFIX.meta_gene_abundance.rpkm.tsv` and
+  `PREFIX.meta_gene_abundance.fpkm.tsv` files from previous versions are deleted
   during output writing because the long table now contains both metrics.

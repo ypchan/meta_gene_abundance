@@ -11,9 +11,9 @@ venv/
 env/
 
 # Generated analysis outputs
-*.gene_abundance.long.tsv
-*.gene_abundance.rpkm.tsv
-*.gene_abundance.fpkm.tsv
+*.meta_gene_abundance.long.tsv
+*.meta_gene_abundance.rpkm.tsv
+*.meta_gene_abundance.fpkm.tsv
 *.sample_qc.tsv
 *.reference.tsv
 *.failed.tsv

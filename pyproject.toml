@@ -31,7 +31,7 @@ classifiers = [
 ]
 
 [project.scripts]
-gene_abundance = "gene_abundance:main"
+meta_gene_abundance = "meta_gene_abundance:main"
 
 [tool.setuptools]
-py-modules = ["gene_abundance"]
+py-modules = ["meta_gene_abundance"]

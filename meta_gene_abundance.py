@@ -37,8 +37,8 @@ from rich.table import Table
 from rich_argparse import RawDescriptionRichHelpFormatter
 
 
-PROGRAM = "gene_abundance"
-CHECKPOINT_SCHEMA = 5
+PROGRAM = "meta_gene_abundance"
+CHECKPOINT_SCHEMA = 6
 CONFLICT_RULE = "AS>MAPQ>aligned_query_length>lower_NM; exact ties unresolved"
 MISSING_R2 = {"", "NA", "Na", "na", "N/A", "None", "none", "-", "."}
 CIGAR_RE = re.compile(r"(\d+)([MIDNSHP=X])")
@@ -84,7 +84,7 @@ B. Single-sample mode
 ---------------------
 Use --r1 and optionally --r2:
 
-    gene_abundance.py \
+    meta_gene_abundance.py \
         --r1 sample.R1.fq.gz \
         --r2 sample.R2.fq.gz \
         --sample-id sample01 \
@@ -167,7 +167,7 @@ Parallelism:
 
 Output organization:
   No analysis directory is created. Results are PREFIX.* files. Gene-level
-  abundance values are written to PREFIX.gene_abundance.long.tsv. A single
+  abundance values are written to PREFIX.meta_gene_abundance.long.tsv. A single
   PREFIX.bam directory is created only when --keep-bam is specified.
 
 Resume behavior:
@@ -252,15 +252,15 @@ Examples
 ========
 Run a sample list with a temporary minimap2 index:
 
-gene_abundance.py \
+meta_gene_abundance.py \
     -i samples.tsv \
     --reference target_genes.fa \
-    --prefix gene_abundance \
+    --prefix results \
     --threads 16
 
 Main outputs
 ============
-PREFIX.gene_abundance.long.tsv
+PREFIX.meta_gene_abundance.long.tsv
 PREFIX.sample_qc.tsv
 PREFIX.reference.tsv
 PREFIX.run.log
@@ -1159,7 +1159,7 @@ def write_outputs(
     ]
 
     atomic_tsv_write(
-        Path(f"{prefix}.gene_abundance.long.tsv"),
+        Path(f"{prefix}.meta_gene_abundance.long.tsv"),
         long_rows,
         long_fields,
     )
@@ -1176,8 +1176,8 @@ def write_outputs(
         ],
         ["gene_id", "gene_length"],
     )
-    Path(f"{prefix}.gene_abundance.rpkm.tsv").unlink(missing_ok=True)
-    Path(f"{prefix}.gene_abundance.fpkm.tsv").unlink(missing_ok=True)
+    Path(f"{prefix}.meta_gene_abundance.rpkm.tsv").unlink(missing_ok=True)
+    Path(f"{prefix}.meta_gene_abundance.fpkm.tsv").unlink(missing_ok=True)
 
 
 def display_parameters(
@@ -1212,7 +1212,7 @@ def display_parameters(
 
 def output_paths(prefix: Path) -> list[Path]:
     return [
-        Path(f"{prefix}.gene_abundance.long.tsv"),
+        Path(f"{prefix}.meta_gene_abundance.long.tsv"),
         Path(f"{prefix}.sample_qc.tsv"),
         Path(f"{prefix}.reference.tsv"),
         Path(f"{prefix}.failed.tsv"),
@@ -1522,7 +1522,7 @@ def main() -> int:
                 total_reads / elapsed if elapsed > 0 else 0.0,
             )
             CONSOLE.print("\n[bold green]Completed successfully.[/bold green]")
-            CONSOLE.print(f"Long table  : [cyan]{args.prefix}.gene_abundance.long.tsv[/cyan]")
+            CONSOLE.print(f"Long table  : [cyan]{args.prefix}.meta_gene_abundance.long.tsv[/cyan]")
             CONSOLE.print(f"Sample QC   : [cyan]{args.prefix}.sample_qc.tsv[/cyan]")
             return 0
 
@@ -1635,7 +1635,7 @@ def main() -> int:
                 return 1
 
         CONSOLE.print("\n[bold green]Completed successfully.[/bold green]")
-        CONSOLE.print(f"Long table  : [cyan]{args.prefix}.gene_abundance.long.tsv[/cyan]")
+        CONSOLE.print(f"Long table  : [cyan]{args.prefix}.meta_gene_abundance.long.tsv[/cyan]")
         CONSOLE.print(f"Sample QC   : [cyan]{args.prefix}.sample_qc.tsv[/cyan]")
         return 0
 
