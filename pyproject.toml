@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "meta-gene-abundance"
+version = "0.1.0"
+description = "Estimate target-gene abundance from metagenomic reads with minimap2."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "rich>=13",
+  "rich-argparse>=1.4",
+]
+authors = [
+  { name = "Yupeng Chan" },
+]
+keywords = [
+  "metagenomics",
+  "gene-abundance",
+  "minimap2",
+  "samtools",
+  "seqkit",
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+
+[project.scripts]
+gene_abundance = "gene_abundance:main"
+
+[tool.setuptools]
+py-modules = ["gene_abundance"]

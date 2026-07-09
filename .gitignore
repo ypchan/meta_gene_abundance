@@ -1,0 +1,26 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local environments
+.venv/
+venv/
+env/
+
+# Generated analysis outputs
+*.gene_abundance.long.tsv
+*.gene_abundance.rpkm.tsv
+*.gene_abundance.fpkm.tsv
+*.sample_qc.tsv
+*.reference.tsv
+*.failed.tsv
+*.run.log
+*.state.json
+*.bam/
+
+# Minimap2 indexes generated during local work
+*.mmi
+*.mmi.gene_index.json
