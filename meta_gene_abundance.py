@@ -262,7 +262,7 @@ Main outputs
 ============
 PREFIX.meta_gene_abundance.long.tsv
 PREFIX.sample_qc.tsv
-PREFIX.reference.tsv
+PREFIX.target_gene_lengths.tsv
 PREFIX.run.log
 PREFIX.state.json
 """,
@@ -1169,13 +1169,14 @@ def write_outputs(
         qc_fields,
     )
     atomic_tsv_write(
-        Path(f"{prefix}.reference.tsv"),
+        Path(f"{prefix}.target_gene_lengths.tsv"),
         [
             {"gene_id": gene_id, "gene_length": target_lengths[gene_id]}
             for gene_id in target_ids
         ],
         ["gene_id", "gene_length"],
     )
+    Path(f"{prefix}.reference.tsv").unlink(missing_ok=True)
     Path(f"{prefix}.meta_gene_abundance.rpkm.tsv").unlink(missing_ok=True)
     Path(f"{prefix}.meta_gene_abundance.fpkm.tsv").unlink(missing_ok=True)
 
@@ -1214,7 +1215,7 @@ def output_paths(prefix: Path) -> list[Path]:
     return [
         Path(f"{prefix}.meta_gene_abundance.long.tsv"),
         Path(f"{prefix}.sample_qc.tsv"),
-        Path(f"{prefix}.reference.tsv"),
+        Path(f"{prefix}.target_gene_lengths.tsv"),
         Path(f"{prefix}.failed.tsv"),
         Path(f"{prefix}.run.log"),
         Path(f"{prefix}.state.json"),

@@ -16,6 +16,7 @@ env/
 *.meta_gene_abundance.fpkm.tsv
 *.sample_qc.tsv
 *.reference.tsv
+*.target_gene_lengths.tsv
 *.failed.tsv
 *.run.log
 *.state.json

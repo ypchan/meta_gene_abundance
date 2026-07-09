@@ -74,7 +74,7 @@ Main outputs:
 ```text
 results.meta_gene_abundance.long.tsv
 results.sample_qc.tsv
-results.reference.tsv
+results.target_gene_lengths.tsv
 results.run.log
 results.state.json
 ```
@@ -298,9 +298,9 @@ Important columns:
 One row per completed sample. It records library size, retained alignment
 records, target-assigned counts, conflict counts, timing, and thread allocation.
 
-### `PREFIX.reference.tsv`
+### `PREFIX.target_gene_lengths.tsv`
 
-A two-column reference dictionary:
+A two-column target-gene length table:
 
 ```text
 gene_id	gene_length
@@ -308,7 +308,8 @@ gene_id	gene_length
 
 This file is redundant with the `gene_id` and `gene_length` columns in the long
 table, but it is useful for auditing the exact target set and for downstream
-tools that want a separate gene-length table.
+tools that want a separate gene-length table. Older `PREFIX.reference.tsv`
+files from previous versions are deleted during output writing.
 
 ### `PREFIX.run.log`
 
